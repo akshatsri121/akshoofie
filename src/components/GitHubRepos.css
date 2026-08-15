@@ -1,0 +1,144 @@
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.repo-card {
+  min-width: 0;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgb(115 251 211 / 5%), transparent 45%),
+    var(--panel);
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.repo-card:hover {
+  border-color: var(--mint);
+  transform: translateY(-4px);
+}
+
+.repo-card > a {
+  display: flex;
+  min-height: 18rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.repo-topline,
+.repo-meta {
+  display: flex;
+  align-items: center;
+  color: var(--faint);
+  font-size: 0.61rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.repo-topline {
+  justify-content: space-between;
+  color: var(--pink);
+}
+
+.repo-card h3 {
+  margin: 3rem 0 0.7rem;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  text-transform: capitalize;
+}
+
+.repo-card p {
+  max-width: 55ch;
+  color: var(--muted);
+}
+
+.repo-meta {
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.repo-meta span:first-child {
+  color: var(--mint);
+}
+
+.repo-meta i {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 8px var(--mint);
+}
+
+.repo-card time {
+  margin-top: 0.8rem;
+  color: var(--faint);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.repo-card--loading {
+  display: flex;
+  min-height: 18rem;
+  padding: 2rem;
+  flex-direction: column;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+.repo-card--loading span {
+  height: 0.7rem;
+  background: linear-gradient(
+    90deg,
+    var(--line),
+    var(--line-bright),
+    var(--line)
+  );
+  background-size: 200% 100%;
+  animation: repo-loading 1.5s linear infinite;
+}
+
+.repo-card--loading span:nth-child(1) {
+  width: 30%;
+}
+
+.repo-card--loading span:nth-child(2) {
+  width: 75%;
+  height: 2.5rem;
+  margin-top: 3rem;
+}
+
+.repo-card--loading span:nth-child(3) {
+  width: 90%;
+}
+
+.repo-error {
+  padding: clamp(2rem, 5vw, 4rem);
+  border: 1px dashed var(--line-bright);
+  background: var(--panel);
+}
+
+.repo-error h3 {
+  margin-bottom: 0.6rem;
+}
+
+.repo-error > p:last-child {
+  max-width: 58ch;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+@keyframes repo-loading {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 650px) {
+  .repo-grid {
+    grid-template-columns: 1fr;
+  }
+}

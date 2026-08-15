@@ -1,0 +1,22 @@
+---
+type Props = {
+  label?: string;
+  title: string;
+  message: string;
+  compact?: boolean;
+};
+
+const { label = 'NO DATA', title, message, compact = false } = Astro.props;
+---
+
+<div class:list={['empty-state', { 'empty-state--compact': compact }]}>
+  <div class="empty-state-radar" aria-hidden="true">
+    <span></span>
+    <i></i>
+  </div>
+  <div>
+    <p class="eyebrow">{label}</p>
+    <h3>{title}</h3>
+    <p>{message}</p>
+  </div>
+</div>

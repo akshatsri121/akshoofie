@@ -1,0 +1,46 @@
+---
+type Props = { currentPath: string };
+const { currentPath } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home', code: '01' },
+  { href: '/blog', label: 'Blog', code: '02' },
+  { href: '/about', label: 'About', code: '03' },
+];
+
+const isActive = (href: string) =>
+  href === '/' ? currentPath === href : currentPath.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="header-topline" aria-hidden="true">
+    <span>SYSTEM://AKSHOOFIE</span>
+    <span class="header-signal"><i></i> SIGNAL ONLINE</span>
+  </div>
+  <div class="header-main">
+    <a class="wordmark" href="/" aria-label="Akshoofie home">
+      <span class="wordmark-mark">A*</span>
+      <span>akshoofie</span>
+      <small>.exe</small>
+    </a>
+
+    <nav aria-label="Primary navigation">
+      <details class="nav-menu">
+        <summary>MENU <span aria-hidden="true">[+]</span></summary>
+        <div class="nav-links">
+          {
+            links.map((link) => (
+              <a
+                href={link.href}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+              >
+                <small>{link.code}</small>
+                {link.label}
+              </a>
+            ))
+          }
+        </div>
+      </details>
+    </nav>
+  </div>
+</header>

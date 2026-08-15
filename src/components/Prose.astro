@@ -1,0 +1,85 @@
+<article class="prose">
+  <slot />
+</article>
+
+<style>
+  .prose {
+    max-width: 760px;
+    margin: clamp(3rem, 7vw, 6rem) auto 8rem;
+    color: #c9dbd6;
+    font-family: var(--mono);
+    font-size: clamp(0.96rem, 1.5vw, 1.06rem);
+    line-height: 1.85;
+  }
+
+  .prose :global(h2),
+  .prose :global(h3) {
+    color: var(--ink);
+    scroll-margin-top: 2rem;
+  }
+
+  .prose :global(h2) {
+    margin: 4rem 0 1.3rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--line);
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .prose :global(h3) {
+    margin: 2.5rem 0 1rem;
+    font-size: 1.45rem;
+  }
+
+  .prose :global(a) {
+    color: var(--mint);
+  }
+  .prose :global(strong) {
+    color: var(--ink);
+  }
+
+  .prose :global(blockquote) {
+    margin: 2.5rem 0;
+    padding: 1.2rem 1.5rem;
+    color: var(--ink);
+    border-left: 3px solid var(--pink);
+    background: rgb(255 79 184 / 6%);
+  }
+
+  .prose :global(blockquote p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .prose :global(code) {
+    padding: 0.15em 0.35em;
+    color: var(--mint);
+    background: var(--panel-raised);
+    font-size: 0.9em;
+  }
+
+  .prose :global(pre) {
+    overflow-x: auto;
+    margin: 2rem 0;
+    padding: 1.2rem;
+    border: 1px solid var(--line);
+  }
+
+  .prose :global(pre code) {
+    padding: 0;
+    background: none;
+  }
+
+  .prose :global(img) {
+    width: 100%;
+    margin: 2.5rem 0;
+    border: 1px solid var(--line-bright);
+  }
+
+  .prose :global(hr) {
+    margin: 3rem 0;
+    border: 0;
+    border-top: 1px dashed var(--line-bright);
+  }
+  .prose :global(li) {
+    margin-bottom: 0.45rem;
+  }
+</style>

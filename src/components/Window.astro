@@ -1,0 +1,19 @@
+---
+type Props = {
+  title: string;
+  code?: string;
+  class?: string;
+};
+
+const { title, code = 'SYS', class: className = '' } = Astro.props;
+---
+
+<section class:list={['window', className]}>
+  <header class="window-bar">
+    <span><i aria-hidden="true"></i>{code}://{title}</span>
+    <span aria-hidden="true">_ □ ×</span>
+  </header>
+  <div class="window-body">
+    <slot />
+  </div>
+</section>

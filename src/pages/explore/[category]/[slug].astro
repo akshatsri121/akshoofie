@@ -1,0 +1,54 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import ArticleHeader from '../../../components/ArticleHeader.astro';
+import Prose from '../../../components/Prose.astro';
+import { categoryLabel } from '../../../data/site';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { entrySlug, getInterests } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const entries = await getInterests();
+  return entries.map((entry) => ({
+    params: { category: entry.data.category, slug: entrySlug(entry.id) },
+    props: { entry },
+  }));
+}
+
+type Props = { entry: CollectionEntry<'interests'> };
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const label = categoryLabel(entry.data.category);
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.summary}
+  image={entry.data.cover}
+  article
+>
+  <ArticleHeader
+    eyebrow={`${label} / ${entry.data.status}`}
+    title={entry.data.title}
+    description={entry.data.summary}
+    date={entry.data.date}
+    status={entry.data.status}
+    backHref={`/explore/${entry.data.category}`}
+    backLabel={`Return to ${label}`}
+  />
+  {
+    entry.data.cover && (
+      <img class="detail-cover" src={entry.data.cover} alt="" />
+    )
+  }
+  <Prose><Content /></Prose>
+</BaseLayout>
+
+<style>
+  .detail-cover {
+    width: min(100%, 1000px);
+    max-height: 36rem;
+    margin: 3rem auto 0;
+    border: 1px solid var(--line-bright);
+    object-fit: cover;
+  }
+</style>

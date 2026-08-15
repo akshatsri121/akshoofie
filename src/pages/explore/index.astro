@@ -1,0 +1,30 @@
+---
+import ExploreBrowser from '../../components/ExploreBrowser';
+import PageIntro from '../../components/PageIntro.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getInterests, toInterestItem } from '../../lib/content';
+
+const entries = await getInterests();
+const items = entries.map(toInterestItem);
+---
+
+<BaseLayout
+  title="Explore the archive"
+  description="Browse Akshat's anime, music, games, shows, movies, and niche hobbies."
+>
+  <PageIntro
+    eyebrow="Media archive / all sectors"
+    title="Things I like, logged."
+    description="Not a definitive ranking. Just a growing record of stories, sounds, worlds, and rabbit holes worth remembering."
+    count={items.length}
+  />
+  <section class="page-section archive-section">
+    <ExploreBrowser items={items} client:load />
+  </section>
+</BaseLayout>
+
+<style>
+  .archive-section {
+    margin-top: 3rem;
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import ArticleHeader from '../../components/ArticleHeader.astro';
+import Prose from '../../components/Prose.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { entrySlug, getLearningEntries } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const entries = await getLearningEntries();
+  return entries.map((entry) => ({
+    params: { slug: entrySlug(entry.id) },
+    props: { entry },
+  }));
+}
+
+type Props = { entry: CollectionEntry<'learning'> };
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.summary}
+  image={entry.data.cover}
+  article
+>
+  <ArticleHeader
+    eyebrow={`${entry.data.kind} / ${entry.data.status}`}
+    title={entry.data.title}
+    description={entry.data.summary}
+    date={entry.data.date}
+    tags={entry.data.tags}
+    status={entry.data.status}
+    backHref="/learning"
+    backLabel="Return to workbench"
+  />
+  <div class="project-links">
+    {
+      typeof entry.data.progress === 'number' && (
+        <span>PROGRESS: {entry.data.progress}%</span>
+      )
+    }
+    {
+      entry.data.repo && (
+        <a href={entry.data.repo} rel="noreferrer" target="_blank">
+          SOURCE ↗
+        </a>
+      )
+    }
+    {
+      entry.data.demo && (
+        <a href={entry.data.demo} rel="noreferrer" target="_blank">
+          LIVE DEMO ↗
+        </a>
+      )
+    }
+  </div>
+  <Prose><Content /></Prose>
+</BaseLayout>
+
+<style>
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 920px;
+    margin: 1.5rem auto 0;
+    color: var(--mint);
+    font-size: 0.65rem;
+  }
+</style>

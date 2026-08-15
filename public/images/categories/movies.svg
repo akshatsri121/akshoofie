@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" shape-rendering="crispEdges">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <g id="reel">
+      <path fill="#00db69" d="M107 30h106v16h34v18h25v25h18v34h16v72h-16v27h-18v18h-25v17h-34v16H107v-16H73v-17H48v-18H30v-27H14v-72h16V89h18V64h25V46h34z"/>
+      <path fill="#006a37" d="M73 46h174v18H73zm-43 43h18v133H30zm242 0h18v133h-18z"/>
+      <path fill="#030906" d="M139 62h42v54h-42zM72 120h54v42H72zm122 0h54v42h-54zM93 185h46v48H93zm88 0h46v48h-46zm-42-42h42v42h-42z"/>
+      <path fill="#80ff89" d="M73 64H55v25H37v34H21v36h16v-36h18V89h18z" opacity=".72"/>
+      <path fill="#00b65c" d="M213 257h79v16h14v31h-18v-15h-75z"/>
+    </g>
+  </defs>
+  <rect width="320" height="320" fill="#000"/>
+  <use href="#reel" opacity=".58" filter="url(#glow)"/>
+  <use href="#reel"/>
+  <path fill="#00ff62" d="M0 79h87v8H0zm227 113h93v8h-93z" opacity=".75"/>
+  <path fill="#004d29" d="M0 249h76v11H0zm248 34h72v8h-72z"/>
+</svg>

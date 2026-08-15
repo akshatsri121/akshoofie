@@ -1,0 +1,38 @@
+{
+  "name": "akshoofie",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@astrojs/react": "latest",
+    "@astrojs/rss": "latest",
+    "@astrojs/sitemap": "latest",
+    "@fontsource-variable/jetbrains-mono": "latest",
+    "@fontsource-variable/syne": "latest",
+    "astro": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "simple-icons": "^16.28.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "prettier": "latest",
+    "prettier-plugin-astro": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

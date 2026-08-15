@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 / Signal lost"
+  description="This page could not be located."
+>
+  <section class="error-page">
+    <div class="error-code" aria-hidden="true">404</div>
+    <p class="eyebrow">Navigation fault</p>
+    <h1>Signal lost in the void.</h1>
+    <p>
+      The file you requested moved, never existed, or got eaten by an unstable
+      internet connection.
+    </p>
+    <a class="button" href="/">Reboot to home →</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .error-page {
+    position: relative;
+    display: grid;
+    min-height: 70vh;
+    padding: 6rem 1rem;
+    place-items: center;
+    align-content: center;
+    text-align: center;
+  }
+  .error-page h1 {
+    max-width: 9ch;
+    margin: 0 auto 1.5rem;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+  }
+  .error-page > p:not(.eyebrow) {
+    max-width: 55ch;
+    margin-bottom: 2rem;
+    color: var(--muted);
+  }
+  .error-code {
+    position: absolute;
+    z-index: -1;
+    color: rgb(115 251 211 / 3%);
+    font-family: var(--display);
+    font-size: min(45vw, 34rem);
+    font-weight: 800;
+    letter-spacing: -0.1em;
+  }
+</style>

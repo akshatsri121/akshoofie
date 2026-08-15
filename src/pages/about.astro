@@ -1,0 +1,236 @@
+---
+import PageIntro from '../components/PageIntro.astro';
+import SocialIcon from '../components/SocialIcon.astro';
+import { site } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About Akshat"
+  description="Meet Akshat Srivastava and find him elsewhere online."
+>
+  <PageIntro
+    eyebrow="User profile / subject 001"
+    title="Hi, I’m Akshat."
+    description="This site is my personal corner of the internet: part archive, part workbench, and part brain dump."
+  />
+
+  <section class="page-section about-grid">
+    <div class="about-portrait">
+      <img
+        src="/images/Pachirisu.jpeg"
+        alt="Pixel art of a cheerful Pachirisu"
+      />
+      <span>PORTRAIT_SCAN_001.JPEG</span>
+    </div>
+    <div class="about-copy">
+      <p class="eyebrow">Readme.txt</p>
+      <h2>I collect interests, not job titles.</h2>
+      <p>{site.intro}</p>
+      <p>
+        I’m also using this space to document the things I learn, from PCB
+        design and web design to whatever catches my attention next.
+      </p>
+      <p>
+        The archive is intentionally unfinished. It will grow as I watch,
+        listen, play, make, move, and write.
+      </p>
+      <dl class="profile-facts">
+        <div><dt>Mode</dt><dd>Always learning</dd></div>
+        <div><dt>Movement</dt><dd>Gym + running</dd></div>
+        <div><dt>Input</dt><dd>Music + stories</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="page-section social-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">External signals</p>
+        <h2>Find me online.</h2>
+      </div>
+      <p>Other corners of the internet where I exist.</p>
+    </div>
+    <div class="social-grid">
+      {
+        site.socials.map((social) =>
+          social.href ? (
+            <a
+              class="social-card"
+              href={social.href}
+              target="_blank"
+              rel="me noreferrer"
+            >
+              <SocialIcon platform={social.label} />
+              <strong>{social.label}</strong>
+              <small>{social.handle}</small>
+              <span class="social-action" aria-hidden="true">
+                OPEN ↗
+              </span>
+            </a>
+          ) : (
+            <button
+              class="social-card"
+              type="button"
+              data-copy={social.handle}
+              aria-label={`Copy Discord handle ${social.handle}`}
+            >
+              <SocialIcon platform={social.label} />
+              <strong>{social.label}</strong>
+              <small>{social.handle}</small>
+              <span class="social-action" data-copy-label aria-hidden="true">
+                COPY
+              </span>
+            </button>
+          ),
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-copy]')
+    .forEach((button) => {
+      button.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(button.dataset.copy ?? '');
+        const label = button.querySelector('[data-copy-label]');
+        if (label) label.textContent = 'COPIED';
+      });
+    });
+</script>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(17rem, 0.65fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(3rem, 8vw, 8rem);
+  }
+  .about-portrait {
+    padding: 0.6rem;
+    border: 1px solid var(--line-bright);
+    background: var(--panel);
+    box-shadow: 12px 12px 0 rgb(115 251 211 / 8%);
+    transform: rotate(-1.5deg);
+  }
+  .about-portrait img {
+    width: 100%;
+    aspect-ratio: 1;
+    image-rendering: pixelated;
+    object-fit: cover;
+  }
+  .about-portrait span {
+    display: block;
+    padding: 0.55rem 0.25rem 0.1rem;
+    color: var(--faint);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+  }
+  .about-copy h2 {
+    max-width: 13ch;
+    margin-bottom: 1.5rem;
+  }
+  .about-copy > p:not(.eyebrow) {
+    max-width: 64ch;
+    color: var(--muted);
+  }
+  .profile-facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .profile-facts div {
+    padding: 1rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .profile-facts dt {
+    color: var(--faint);
+    font-size: 0.58rem;
+    text-transform: uppercase;
+  }
+  .profile-facts dd {
+    margin: 0.25rem 0 0;
+    color: var(--mint);
+    font-size: 0.72rem;
+  }
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .social-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: 12rem;
+    padding: 1.3rem;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    background:
+      linear-gradient(145deg, rgb(115 251 211 / 6%), transparent 48%),
+      var(--panel);
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    text-decoration: none;
+    transition:
+      border-color 150ms ease,
+      transform 150ms ease;
+  }
+  .social-card:hover {
+    border-color: var(--mint);
+    transform: translateY(-4px);
+  }
+  .social-card :global(svg) {
+    width: 2.35rem;
+    height: 2.35rem;
+    margin-bottom: 2.2rem;
+    color: var(--mint);
+    filter: drop-shadow(0 0 9px rgb(115 251 211 / 35%));
+  }
+  .social-card strong {
+    font-family: var(--display);
+    font-size: 1.25rem;
+  }
+  .social-card small {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 0.61rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .social-action {
+    margin-top: auto;
+    padding-top: 1rem;
+    color: var(--pink);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+  }
+  @media (max-width: 750px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-portrait {
+      width: min(100%, 20rem);
+      margin: 0 auto;
+    }
+    .profile-facts {
+      grid-template-columns: 1fr;
+    }
+    .social-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 520px) {
+    .social-card {
+      min-height: 10rem;
+    }
+  }
+</style>

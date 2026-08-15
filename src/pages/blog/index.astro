@@ -1,0 +1,119 @@
+---
+import EmptyState from '../../components/EmptyState.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { entrySlug, getBlogPosts } from '../../lib/content';
+
+const posts = await getBlogPosts();
+---
+
+<BaseLayout
+  title="Blog"
+  description="Essays, reviews, learning notes, and thoughts from Akshat."
+>
+  <PageIntro
+    eyebrow="Text feed / transmissions"
+    title="Notes from my brain."
+    description="Long thoughts, short observations, reviews, build notes, and things I want future me to remember."
+    count={posts.length}
+  />
+  <section class="page-section blog-feed">
+    {
+      posts.length ? (
+        posts.map((post, index) => (
+          <article class="post-row">
+            <a href={`/blog/${entrySlug(post.id)}`}>
+              <span class="post-index">
+                {String(index + 1).padStart(3, '0')}
+              </span>
+              <div>
+                <div class="post-meta">
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {post.data.pubDate.toLocaleDateString('en-IN', {
+                      dateStyle: 'medium',
+                    })}
+                  </time>
+                  <span>{post.data.tags.join(' / ') || 'uncategorized'}</span>
+                </div>
+                <h2>{post.data.title}</h2>
+                <p>{post.data.description}</p>
+              </div>
+              <span class="post-arrow" aria-hidden="true">
+                ↗
+              </span>
+            </a>
+          </article>
+        ))
+      ) : (
+        <EmptyState
+          label="Text buffer / 0 bytes"
+          title="The cursor is blinking."
+          message="No posts have been transmitted yet. Future essays, reviews, and learning notes will collect here."
+        />
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-feed {
+    display: grid;
+    margin-top: 3rem;
+    border-top: 1px solid var(--line);
+  }
+  .post-row {
+    border-bottom: 1px solid var(--line);
+  }
+  .post-row > a {
+    display: grid;
+    grid-template-columns: 5rem 1fr auto;
+    gap: 1.5rem;
+    padding: 2rem 1rem;
+    text-decoration: none;
+    transition: background 150ms ease;
+  }
+  .post-row > a:hover {
+    background: rgb(115 251 211 / 5%);
+  }
+  .post-index {
+    color: var(--faint);
+    font-size: 0.65rem;
+  }
+  .post-meta {
+    display: flex;
+    gap: 1rem;
+    color: var(--pink);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .post-meta span {
+    color: var(--muted);
+  }
+  .post-row h2 {
+    margin: 1rem 0 0.7rem;
+    font-size: clamp(2rem, 5vw, 4rem);
+  }
+  .post-row p {
+    max-width: 65ch;
+    margin: 0;
+    color: var(--muted);
+  }
+  .post-arrow {
+    align-self: center;
+    color: var(--mint);
+    font-size: 1.4rem;
+  }
+  @media (max-width: 600px) {
+    .post-row > a {
+      grid-template-columns: 1fr auto;
+    }
+    .post-index {
+      display: none;
+    }
+    .post-meta {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+  }
+</style>

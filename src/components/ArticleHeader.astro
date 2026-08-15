@@ -1,0 +1,116 @@
+---
+type Props = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  date: Date;
+  tags?: string[];
+  backHref: string;
+  backLabel: string;
+  status?: string;
+  rating?: number;
+};
+
+const {
+  eyebrow,
+  title,
+  description,
+  date,
+  tags = [],
+  backHref,
+  backLabel,
+  status,
+  rating,
+} = Astro.props;
+---
+
+<header class="article-header">
+  <a class="article-back" href={backHref}>← {backLabel}</a>
+  <p class="eyebrow">{eyebrow}</p>
+  <h1>{title}</h1>
+  <p class="article-description">{description}</p>
+  <div class="article-data">
+    <time datetime={date.toISOString()}
+      >{date.toLocaleDateString('en-IN', { dateStyle: 'long' })}</time
+    >
+    {status && <span class="status-chip">{status.replace('-', ' ')}</span>}
+    {
+      typeof rating === 'number' && (
+        <span class="status-chip status-chip--rating">{rating}/10</span>
+      )
+    }
+  </div>
+  {
+    tags.length > 0 && (
+      <div class="tag-list">
+        {tags.map((tag) => (
+          <span class="tag">#{tag}</span>
+        ))}
+      </div>
+    )
+  }
+</header>
+
+<style>
+  .article-header {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: clamp(4rem, 10vw, 8rem) 0 clamp(2.5rem, 6vw, 4rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .article-back {
+    display: inline-block;
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+    color: var(--muted);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .article-header h1 {
+    max-width: 11ch;
+    margin-bottom: 1.5rem;
+    font-size: clamp(3rem, 8vw, 7rem);
+  }
+
+  .article-description {
+    max-width: 64ch;
+    margin-bottom: 1.8rem;
+    color: var(--muted);
+    font-size: clamp(1rem, 2vw, 1.18rem);
+  }
+
+  .article-data,
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .article-data {
+    margin-bottom: 1rem;
+    color: var(--pink);
+    font-size: 0.67rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .status-chip,
+  .tag {
+    padding: 0.25rem 0.48rem;
+  }
+
+  .status-chip {
+    color: var(--mint);
+  }
+  .status-chip--rating {
+    color: var(--black);
+    border-color: var(--amber);
+    background: var(--amber);
+  }
+  .tag {
+    color: var(--muted);
+  }
+</style>

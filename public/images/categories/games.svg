@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" shape-rendering="crispEdges">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <g id="pad">
+      <path fill="#00d96a" d="M85 84h150v16h32v18h18v36h16v75h-18v27h-49v-18h-32v-20h-84v20H86v18H37v-27H19v-75h16v-36h18v-18h32z"/>
+      <path fill="#008e4a" d="M53 118h214v18H53zm-18 36h18v75H35zm232 0h18v75h-18z"/>
+      <path fill="#020906" d="M80 145h24v-24h24v24h24v24h-24v24h-24v-24H80zm115 12h24v24h-24zm38-24h24v24h-24zm0 48h24v24h-24z"/>
+      <path fill="#87ff8c" d="M53 100h182v18H53zm32 138h33v-20h84v20h33v18H85z" opacity=".78"/>
+    </g>
+  </defs>
+  <rect width="320" height="320" fill="#000"/>
+  <use href="#pad" opacity=".6" filter="url(#glow)"/>
+  <use href="#pad"/>
+  <path fill="#00ff62" d="M0 74h111v7H0zm235 178h85v9h-85z" opacity=".7"/>
+  <path fill="#004d2a" d="M15 275h145v7H15zm229-222h76v12h-76z"/>
+</svg>

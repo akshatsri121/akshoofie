@@ -1,0 +1,63 @@
+---
+import ExploreBrowser from '../../../components/ExploreBrowser';
+import PageIntro from '../../../components/PageIntro.astro';
+import { categories } from '../../../data/site';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getInterests, toInterestItem } from '../../../lib/content';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const entries = (await getInterests()).filter(
+  ({ data }) => data.category === category.slug,
+);
+const items = entries.map(toInterestItem);
+const descriptions: Record<string, string> = {
+  anime:
+    'Series, characters, scenes, and animated worlds that stayed on my mind.',
+  music: 'Albums, artists, playlists, and individual tracks on repeat.',
+  games:
+    'Games played, finished, abandoned, or still living rent-free in my head.',
+  shows: 'Television, limited series, and episodic stories worth logging.',
+  movies: 'Films watched, revisited, recommended, and thought about afterward.',
+  hobbies:
+    'Niche interests, physical pursuits, and rabbit holes that resist neat labels.',
+};
+---
+
+<BaseLayout title={category.label} description={descriptions[category.slug]}>
+  <PageIntro
+    eyebrow={`Archive sector / ${category.glyph}`}
+    title={category.label}
+    description={descriptions[category.slug]}
+    count={items.length}
+  />
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/explore">Archive</a><span>/</span><span>{category.label}</span>
+  </nav>
+  <section class="archive-section">
+    <ExploreBrowser items={items} fixedCategory={category.slug} client:load />
+  </section>
+</BaseLayout>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    gap: 0.6rem;
+    margin: 1.2rem 0 3rem;
+    color: var(--faint);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+  }
+  .breadcrumb a {
+    color: var(--mint);
+  }
+  .archive-section {
+    margin-bottom: 7rem;
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+type Props = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  count?: number;
+};
+
+const { eyebrow, title, description, count } = Astro.props;
+---
+
+<header class="page-intro">
+  <div>
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+  </div>
+  <div class="page-intro-copy">
+    {
+      typeof count === 'number' && (
+        <span class="count-chip">
+          {count.toString().padStart(2, '0')} FILES
+        </span>
+      )
+    }
+    <p>{description}</p>
+  </div>
+</header>
