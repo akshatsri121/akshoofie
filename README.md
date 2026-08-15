@@ -31,7 +31,7 @@ Additional clean templates are available in `content-templates`.
 
 ## Collections
 
-Interest categories are `anime`, `music`, `games`, `shows`, `movies`, and `hobbies`. Published entries automatically appear in search, category pages, detail routes, homepage counts, and current activity when their status is `active`.
+Interest categories are `anime`, `music`, `games`, `shows` and `movies`.
 
 Learning entries support skills, projects, experiments, progress, source links, and live demo links. Blog posts automatically receive detail pages, article metadata, and RSS entries.
 
